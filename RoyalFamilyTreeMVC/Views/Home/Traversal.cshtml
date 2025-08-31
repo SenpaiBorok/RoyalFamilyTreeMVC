@@ -1,0 +1,14 @@
+﻿@model IEnumerable<RoyalFamily.Models.RoyalMember>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <h2>Traversal Order</h2>
+    <ol>
+        @foreach (var m in Model)
+        {
+            <li>@m.Name (@m.DateOfBirth:yyyy)</li>
+        }
+    </ol>
+</div>

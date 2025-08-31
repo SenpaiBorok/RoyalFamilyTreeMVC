@@ -1,0 +1,15 @@
+﻿@model RoyalFamily.Models.FamilyNode
+<ul class="tree">
+    <li>
+        <div class="node">@Model.Member.Name <span class="small">(@Model.Member.DateOfBirth:yyyy)</span></div>
+        @if (Model.Children.Any())
+        {
+            <ul>
+                @foreach (var c in Model.Children)
+                {
+                    @await Html.PartialAsync("_TreePartial", c)
+                }
+            </ul>
+        }
+    </li>
+</ul>

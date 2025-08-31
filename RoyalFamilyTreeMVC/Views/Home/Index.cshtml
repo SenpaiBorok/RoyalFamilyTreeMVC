@@ -1,0 +1,64 @@
+﻿@model RoyalFamily.Models.FamilyNode
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var match = (RoyalFamily.Models.FamilyNode?)ViewBag.Match;
+    var order = (IReadOnlyList<RoyalFamily.Models.RoyalMember>)ViewBag.Succession;
+}
+
+<section class="split">
+    <div>
+        <form method="get" class="card">
+            <h2>Search</h2>
+            <input name="q" placeholder="Find a royal..." value="@ViewBag.Query" />
+            <button type="submit">Search</button>
+        </form>
+
+        @if (match != null)
+        {
+            <div class="card highlight">
+                <h3>Result</h3>
+                <p>
+                    <strong>@match.Member.Name</strong><br />
+                    Born @match.Member.DateOfBirth<br />
+                    Status: @(match.Member.IsAlive ? "Alive" : "Deceased")
+                </p>
+            </div>
+        }
+
+        <div class="card">
+            <h2>Succession Order</h2>
+            <ol>
+                @foreach (var m in order)
+                {
+                    <li>@m.Name (@m.DateOfBirth:yyyy)</li>
+                }
+            </ol>
+        </div>
+    </div>
+
+    <div>
+        <div class="card">
+            <h2>Family Tree</h2>
+            @await Html.PartialAsync("_TreePartial", Model)
+        </div>
+
+        <div class="card">
+            <h2>Add Child</h2>
+            <form method="post" asp-action="AddChild">
+                <label>
+                    Parent
+                    <select name="parentId">
+                        @foreach (var n in Model.DFS())
+                        {
+                            <option value="@n.Member.Id">@n.Member.Name</option>
+                        }
+                    </select>
+                </label>
+                <label>Name <input name="name" required /></label>
+                <label>Date of Birth <input name="dob" type="date" required /></label>
+                <label class="chk"><input name="isAlive" type="checkbox" checked /> Alive</label>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</section>

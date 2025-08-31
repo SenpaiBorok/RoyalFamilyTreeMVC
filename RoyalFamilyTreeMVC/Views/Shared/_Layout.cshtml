@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>House of Windsor – Family Tree</title>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+    <header class="topbar">
+        <h1>House of Windsor – Family Tree (MVC)</h1>
+        <nav>
+            <a href="/">Tree</a>
+            <a href="/Home/Bfs">BFS</a>
+            <a href="/Home/Dfs">DFS</a>
+        </nav>
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    <footer class="foot">Made for learning • In-memory data</footer>
+</body>
+</html>
